@@ -173,3 +173,55 @@ body {
 .condition-list li:last-child {
   border-bottom: 0;
 }
+
+.condition-subtitle {
+  margin: -8px 0 16px;
+  color: #475569;
+  text-align: left;
+}
+
+.condition-table-wrapper {
+  padding: 0;
+  overflow-x: auto;
+}
+
+.condition-table {
+  width: 100%;
+  border-collapse: collapse;
+  min-width: 900px;
+}
+
+.condition-table th,
+.condition-table td {
+  border: 1px solid #cbd5e1;
+  padding: 10px 12px;
+  text-align: left;
+  vertical-align: top;
+}
+
+.condition-table thead th {
+  background: #e2e8f0;
+  font-size: 14px;
+}
+
+.tag-category {
+  width: 160px;
+  font-weight: 700;
+}
+
+.tag-row.persona {
+  background: #c9dcee;
+}
+
+.tag-row.behavior {
+  background: #f2ceb4;
+}
+
+.tag-row.operation {
+  background: #e5e7eb;
+}
+
+.source-empty {
+  color: #dc2626;
+  font-weight: 700;
+}
