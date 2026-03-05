@@ -1,51 +1,48 @@
-// src/app/AppShell.tsx
-import { NavLink, Outlet } from "react-router-dom";
+import type { ReactNode } from 'react';
+import type { PageItem } from './routes';
 
-const nav = [
-  { to: "/", label: "總覽儀表板" },
-  { to: "/customers", label: "客群分析" },
-  { to: "/revenue", label: "營收與貢獻" },
-  { to: "/strategy", label: "策略目標" },
-  { to: "/campaigns", label: "活動設計" },
-];
+type AppShellProps = {
+  pages: PageItem[];
+  currentPage: string;
+  onPageChange: (key: string) => void;
+  children: ReactNode;
+};
 
-export default function AppShell() {
+export default function AppShell({ pages, currentPage, onPageChange, children }: AppShellProps) {
+  const groups = [...new Set(pages.map((item) => item.group))];
+
   return (
-    <div className="min-h-screen bg-slate-50 text-slate-900">
-      <div className="flex">
-        <aside className="w-64 bg-white border-r min-h-screen">
-          <div className="p-4 border-b">
-            <div className="text-lg font-semibold">期貨 CDP</div>
-            <div className="text-xs text-slate-500">Executive Console</div>
-          </div>
-          <nav className="p-2">
-            {nav.map((n) => (
-              <NavLink
-                key={n.to}
-                to={n.to}
-                end={n.to === "/"}
-                className={({ isActive }) =>
-                  `block px-3 py-2 rounded-lg text-sm mb-1 ${
-                    isActive ? "bg-slate-900 text-white" : "hover:bg-slate-100"
-                  }`
-                }
-              >
-                {n.label}
-              </NavLink>
-            ))}
-          </nav>
-        </aside>
-
-        <main className="flex-1">
-          <header className="h-14 bg-white border-b flex items-center justify-between px-4">
-            <div className="text-sm text-slate-600">統一期貨 / 管理層視角</div>
-            <div className="text-xs text-slate-500">資料窗：近 30 天（可切換）</div>
-          </header>
-          <div className="p-4">
-            <Outlet />
-          </div>
-        </main>
-      </div>
+    <div className="layout-root">
+      <aside className="sidebar">
+        <div className="brand">
+          <h1>CDP系統</h1>
+          <p>Data-Driven Console</p>
+        </div>
+        {groups.map((group) => (
+          <section key={group} className="menu-group">
+            <h2>{group}</h2>
+            {pages
+              .filter((item) => item.group === group)
+              .map((item) => (
+                <button
+                  type="button"
+                  key={item.key}
+                  onClick={() => onPageChange(item.key)}
+                  className={item.key === currentPage ? 'menu-item active' : 'menu-item'}
+                >
+                  {item.label}
+                </button>
+              ))}
+          </section>
+        ))}
+      </aside>
+      <main className="content">
+        <header className="topbar">
+          <span>資料期間：2026/02/01 - 2026/02/29</span>
+          <span>更新時間：每日 08:00</span>
+        </header>
+        <div className="page-container">{children}</div>
+      </main>
     </div>
   );
 }

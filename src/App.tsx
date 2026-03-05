@@ -1,42 +1,41 @@
-import "./App.css";
+import { useMemo, useState, type ReactNode } from 'react';
+import AppShell from './app/AppShell';
+import { pageItems } from './app/routes';
+import DashboardKpi from './pages/DashboardKpi';
+import DashboardFee from './pages/DashboardFee';
+import DashboardActiveCustomer from './pages/DashboardActiveCustomer';
+import SegmentAge from './pages/SegmentAge';
+import SegmentPreference from './pages/SegmentPreference';
+import SegmentActivity from './pages/SegmentActivity';
+import RevenueFee from './pages/RevenueFee';
+import RevenueContribution from './pages/RevenueContribution';
+import CampaignEdm from './pages/CampaignEdm';
+import CampaignPush from './pages/CampaignPush';
+import CampaignCondition from './pages/CampaignCondition';
+
+const pageMap: Record<string, ReactNode> = {
+  'dashboard-kpi': <DashboardKpi />,
+  'dashboard-fee': <DashboardFee />,
+  'dashboard-active': <DashboardActiveCustomer />,
+  'segment-age': <SegmentAge />,
+  'segment-preference': <SegmentPreference />,
+  'segment-activity': <SegmentActivity />,
+  'revenue-fee': <RevenueFee />,
+  'revenue-contribution': <RevenueContribution />,
+  'campaign-edm': <CampaignEdm />,
+  'campaign-push': <CampaignPush />,
+  'campaign-condition': <CampaignCondition />,
+};
 
 function App() {
+  const [currentPage, setCurrentPage] = useState('dashboard-kpi');
+  const currentView = useMemo(() => pageMap[currentPage] ?? <DashboardKpi />, [currentPage]);
+
   return (
-    <div style={{ padding: 40, fontFamily: "Arial" }}>
-      <h1>期貨 CDP 管理平台</h1>
-
-      <h2>公司概況</h2>
-
-      <div style={{ display: "flex", gap: 20 }}>
-        <div style={card}>
-          <h3>本月手續費</h3>
-          <p>12,800,000</p>
-        </div>
-
-        <div style={card}>
-          <h3>活躍客戶</h3>
-          <p>2,430</p>
-        </div>
-
-        <div style={card}>
-          <h3>成交客戶</h3>
-          <p>1,120</p>
-        </div>
-
-        <div style={card}>
-          <h3>沉睡客戶</h3>
-          <p>4,980</p>
-        </div>
-      </div>
-    </div>
+    <AppShell pages={pageItems} currentPage={currentPage} onPageChange={setCurrentPage}>
+      {currentView}
+    </AppShell>
   );
 }
-
-const card = {
-  border: "1px solid #ddd",
-  padding: 20,
-  borderRadius: 10,
-  width: 200,
-};
 
 export default App;

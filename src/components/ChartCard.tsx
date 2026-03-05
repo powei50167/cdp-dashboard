@@ -1,14 +1,15 @@
-// src/components/ChartCard.tsx
-import { ReactNode } from "react";
+import type { ReactNode } from 'react';
 
-export default function ChartCard(props: { title: string; right?: ReactNode; children: ReactNode }) {
+type ChartCardProps = {
+  title: string;
+  children: ReactNode;
+};
+
+export default function ChartCard({ title, children }: ChartCardProps) {
   return (
-    <div className="bg-white rounded-2xl border p-4 shadow-sm">
-      <div className="flex items-center justify-between mb-3">
-        <div className="text-sm font-medium">{props.title}</div>
-        {props.right}
-      </div>
-      <div className="h-72">{props.children}</div>
-    </div>
+    <section className="card chart-card">
+      <h3 className="section-title">{title}</h3>
+      <div className="chart-body">{children}</div>
+    </section>
   );
 }
