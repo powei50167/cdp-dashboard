@@ -1,22 +1,15 @@
-// src/app/routes.tsx
-import { createBrowserRouter } from "react-router-dom";
-import AppShell from "./AppShell";
-import Dashboard from "../pages/Dashboard";
-import Customers from "../pages/Customers";
-import Revenue from "../pages/Revenue";
-import Strategy from "../pages/Strategy";
-import Campaigns from "../pages/Campaigns";
+export type PageItem = { key: string; label: string; group: string };
 
-export const router = createBrowserRouter([
-  {
-    path: "/",
-    element: <AppShell />,
-    children: [
-      { index: true, element: <Dashboard /> },
-      { path: "customers", element: <Customers /> },
-      { path: "revenue", element: <Revenue /> },
-      { path: "strategy", element: <Strategy /> },
-      { path: "campaigns", element: <Campaigns /> },
-    ],
-  },
-]);
+export const pageItems: PageItem[] = [
+  { key: 'dashboard-kpi', label: 'KPI', group: 'Dashboard' },
+  { key: 'dashboard-fee', label: '手續費', group: 'Dashboard' },
+  { key: 'dashboard-active', label: '活躍客戶', group: 'Dashboard' },
+  { key: 'segment-age', label: '年齡', group: '客群分析' },
+  { key: 'segment-preference', label: '商品偏好', group: '客群分析' },
+  { key: 'segment-activity', label: '活躍度', group: '客群分析' },
+  { key: 'revenue-fee', label: '手續費', group: '營收分析' },
+  { key: 'revenue-contribution', label: '客戶貢獻', group: '營收分析' },
+  { key: 'campaign-edm', label: 'EDM', group: '活動設計' },
+  { key: 'campaign-push', label: 'Push', group: '活動設計' },
+  { key: 'campaign-condition', label: '客戶條件', group: '活動設計' },
+];
